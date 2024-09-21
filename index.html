@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng Tính Toán</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ứng dụng Tính Toán</h1>
+
+    <div class="container">
+        <h2>1. Các phép toán: Tổng, Hiệu, Tích, Thương</h2>
+        <input type="number" id="numberA" placeholder="Nhập số a">
+        <input type="number" id="numberB" placeholder="Nhập số b">
+        <button onclick="calculate()">Tính</button>
+        <p id="resultBasic"></p>
+    </div>
+
+    <div class="container">
+        <h2>2. Giải phương trình bậc nhất: ax + b = 0</h2>
+        <input type="number" id="a" placeholder="Nhập a">
+        <input type="number" id="b" placeholder="Nhập b">
+        <button onclick="solveEquation()">Giải</button>
+        <p id="resultEquation"></p>
+    </div>
+
+    <div class="container">
+        <h2>3. Tính số ngày của một tháng</h2>
+        <input type="number" id="month" placeholder="Nhập tháng (1-12)">
+        <input type="number" id="year" placeholder="Nhập năm">
+        <button onclick="calculateDays()">Tính số ngày</button>
+        <p id="resultDays"></p>
+    </div>
+
+    <script>
+        function calculate() {
+            const a = parseFloat(document.getElementById("numberA").value);
+            const b = parseFloat(document.getElementById("numberB").value);
+            const sum = a + b;
+            const difference = a - b;
+            const product = a * b;
+            const quotient = b !== 0 ? a / b : "Không thể chia cho 0";
+            
+            document.getElementById("resultBasic").innerText = 
+                `Tổng: ${sum}, Hiệu: ${difference}, Tích: ${product}, Thương: ${quotient}`;
+        }
+
+        function solveEquation() {
+            const a = parseFloat(document.getElementById("a").value);
+            const b = parseFloat(document.getElementById("b").value);
+            let result;
+
+            if (a !== 0) {
+                result = -b / a;
+                document.getElementById("resultEquation").innerText = `Nghiệm x = ${result}`;
+            } else {
+                if (b === 0) {
+                    document.getElementById("resultEquation").innerText = "Phương trình có vô số nghiệm.";
+                } else {
+                    document.getElementById("resultEquation").innerText = "Phương trình vô nghiệm.";
+                }
+            }
+        }
+
+        function calculateDays() {
+            const month = parseInt(document.getElementById("month").value);
+            const year = parseInt(document.getElementById("year").value);
+            let days;
+
+            if (month < 1 || month > 12) {
+                document.getElementById("resultDays").innerText = "Tháng không hợp lệ!";
+                return;
+            }
+
+            if (month === 2) {
+                days = (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28;
+            } else {
+                days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
+            }
+            
+            document.getElementById("resultDays").innerText = `Số ngày trong tháng ${month}/${year} là ${days}`;
+        }
+    </script>
+</body>
+</html>
